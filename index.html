@@ -1,0 +1,873 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>ZH Health &amp; Wellness</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&family=Noto+Sans+Devanagari:wght@500;700&family=Noto+Sans+Gurmukhi:wght@500;700&family=Noto+Sans+Malayalam:wght@500;700&family=Noto+Sans+Tamil:wght@500;700&display=swap">
+<style>
+/* Layout: concrete-wall ground with grain, a deep green block in the top-right holding a black pill nav,
+   a huge lowercase serif title, a segmented toggle, then a rail of gradient cards where the person rises out of the card.
+   Palette: lime-wash grey, mural green, vermilion CTA, lamp black. */
+:root {
+  --wall: #E7E4DE;
+  --paper: #F3F1EC;
+  --ink: #17191A;
+  --ink-2: #565A58;
+  --line: #CFCBC3;
+  --vermilion: #D2451E;
+  --vermilion-ink: #FFFFFF;
+  --green: #0F4D3B;
+  --green-2: #07281F;
+  --pill: #121413;
+  --pill-ink: #F3F1EC;
+  --leaf: #1D5A43;
+  --leaf-bg: #D7E5DB;
+  --grain: .5;
+  --serif: 'Newsreader', 'Iowan Old Style', Georgia, serif;
+  --sans: 'Mukta', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --native: 'Noto Sans Devanagari', 'Noto Sans Malayalam', 'Noto Sans Tamil', 'Noto Sans Gurmukhi', var(--sans);
+  --r: 14px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --wall: #121413; --paper: #1A1D1C; --ink: #ECEAE5; --ink-2: #A5A8A5; --line: #2E3331;
+    --vermilion: #E8603A; --vermilion-ink: #1A0B06; --green: #145C47; --green-2: #07281F;
+    --pill: #050606; --pill-ink: #ECEAE5; --leaf: #78C7A5; --leaf-bg: #1B3128; --grain: .2;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --wall: #121413; --paper: #1A1D1C; --ink: #ECEAE5; --ink-2: #A5A8A5; --line: #2E3331;
+  --vermilion: #E8603A; --vermilion-ink: #1A0B06; --green: #145C47; --green-2: #07281F;
+  --pill: #050606; --pill-ink: #ECEAE5; --leaf: #78C7A5; --leaf-bg: #1B3128; --grain: .2;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--wall); color: var(--ink); font-family: var(--sans); font-size: 18px; line-height: 1.55; position: relative; overflow-x: hidden; }
+body::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0; opacity: var(--grain); mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .38 0 0 0 0 .37 0 0 0 0 .35 0 0 0 .3 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+body > * { position: relative; z-index: 1; }
+a { color: inherit; }
+button, select, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--vermilion); outline-offset: 3px; }
+h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; text-wrap: balance; }
+p { margin: 0; }
+
+.wrap { max-width: 1240px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.band { padding-block: clamp(56px, 8vw, 104px); }
+.band.tint { background: color-mix(in srgb, var(--paper) 72%, transparent); border-block: 1px solid var(--line); }
+.eyebrow { font-size: .74rem; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-2); }
+h2 { font-size: clamp(2.2rem, 4.6vw, 3.7rem); line-height: 1.02; letter-spacing: -.025em; }
+.lede { color: var(--ink-2); max-width: 58ch; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 14px; background: var(--vermilion); color: var(--vermilion-ink); border: 0; border-radius: 3px; padding: 0 28px; min-height: 52px; font-weight: 700; font-size: .85rem; letter-spacing: .3em; text-transform: uppercase; text-decoration: none; }
+.btn:hover { filter: brightness(1.07); }
+.btn svg { width: 18px; height: 18px; }
+.btn.ghost { background: none; color: var(--ink); border: 1.5px solid var(--ink); }
+.btn.sm { min-height: 42px; padding: 0 20px; font-size: .72rem; letter-spacing: .22em; }
+.know { font-size: .78rem; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1.5px; background: none; border: 0; padding: 0; }
+.know:hover { color: var(--vermilion); }
+
+/* ---------- colour block + pill nav ---------- */
+.corner { position: absolute; top: 0; right: 0; width: min(36vw, 520px); height: clamp(210px, 18vw, 265px); z-index: 0 !important;
+  background: radial-gradient(130% 110% at 18% 0%, var(--green) 0%, var(--green-2) 78%); border-bottom-left-radius: clamp(36px, 4.4vw, 64px); overflow: hidden; }
+.corner svg { position: absolute; right: -70px; bottom: -80px; width: 320px; height: 320px; color: #fff; opacity: .08; }
+.navbar { position: absolute; top: 28px; right: 0; left: 0; z-index: 5 !important; pointer-events: none; }
+.navbar .wrap { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+.brand { pointer-events: auto; display: block; flex: 0 0 auto; line-height: 0; }
+.brand img { height: clamp(44px, 4.6vw, 62px); width: auto; display: block; }
+.brand .on-dark { display: none; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .brand .on-light { display: none; } :root:not([data-theme="light"]) .brand .on-dark { display: block; } }
+:root[data-theme="dark"] .brand .on-light { display: none; }
+:root[data-theme="dark"] .brand .on-dark { display: block; }
+.pillnav { pointer-events: auto; display: flex; align-items: center; gap: 8px; background: var(--pill); color: var(--pill-ink); border-radius: 999px; padding: 7px; box-shadow: 0 10px 30px rgba(0,0,0,.22); position: relative; }
+.pillnav .logo { font-family: var(--serif); font-size: 1.6rem; letter-spacing: -.03em; line-height: 1; text-decoration: none; margin-right: 16px; display: flex; align-items: baseline; gap: 8px; }
+.pillnav .logo small { font-family: var(--native); font-size: .8rem; color: #F0A58C; letter-spacing: 0; }
+.ic { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.3); background: none; color: var(--pill-ink); text-decoration: none; }
+.ic svg { width: 20px; height: 20px; }
+.ic:hover { background: rgba(255,255,255,.12); }
+.ic.hot { background: var(--vermilion); border-color: var(--vermilion); color: #fff; }
+.menu { position: absolute; top: calc(100% + 10px); right: 0; width: min(320px, calc(100vw - 32px)); background: var(--pill); color: var(--pill-ink); border-radius: 20px; padding: 14px; display: none; box-shadow: 0 20px 50px rgba(0,0,0,.35); }
+.menu.open { display: block; }
+.menu a { display: block; padding: 12px 14px; border-radius: 10px; text-decoration: none; font-weight: 500; }
+.menu a:hover { background: rgba(255,255,255,.08); }
+.menu .langs { display: flex; gap: 8px; padding: 10px 14px 4px; border-top: 1px solid rgba(255,255,255,.15); margin-top: 6px; }
+.menu .langs button { flex: 1; background: none; border: 1px solid rgba(255,255,255,.3); border-radius: 999px; padding: 6px; font-family: var(--native); font-size: .85rem; color: var(--pill-ink); }
+.menu .langs button[aria-pressed="true"] { background: var(--pill-ink); color: var(--pill); }
+
+/* ---------- hero ---------- */
+.hero { padding-top: clamp(110px, 10vw, 140px); display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(20px, 3vw, 48px); align-items: center; }
+.crumb { font-size: .95rem; color: var(--ink-2); }
+.crumb b { color: var(--ink); font-weight: 500; }
+.hero h1 { font-size: clamp(3.2rem, 6.6vw, 6.4rem); line-height: .95; letter-spacing: -.045em; margin: 0 0 32px; max-width: 8.5ch; }
+.hero h1.native { font-family: var(--native); font-weight: 700; letter-spacing: -.01em; line-height: 1.15; font-size: clamp(2.6rem, 6.4vw, 5.4rem); }
+.tagline { margin: 0; color: var(--ink-2); font-size: 1.08rem; }
+
+.stage { min-width: 0; overflow-x: clip; }
+.rail { --cw: clamp(180px, 15vw, 244px); --step: calc(var(--cw) * .64); position: relative; height: calc(var(--cw) * 1.45 + 90px); perspective: 1500px; transform-style: preserve-3d; outline: none; touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: grab; }
+.rail:active { cursor: grabbing; }
+.rail:focus-visible { outline: 2px solid var(--vermilion); outline-offset: 6px; border-radius: 28px; }
+.rail::before { content: ""; position: absolute; left: 50%; top: 4%; width: 118%; aspect-ratio: 1; transform: translateX(-50%); border-radius: 50%; border: 1px solid color-mix(in srgb, #4CC38A 35%, transparent); -webkit-mask-image: linear-gradient(#000 0 30%, transparent 46%); mask-image: linear-gradient(#000 0 30%, transparent 46%); pointer-events: none; }
+.rail::after { content: ""; position: absolute; left: 50%; bottom: 6px; width: 74%; height: 56px; transform: translateX(-50%); background: radial-gradient(closest-side, color-mix(in srgb, #3DDC84 55%, transparent), transparent); filter: blur(10px); pointer-events: none; }
+.card { --a: #2E8B8C; --b: #0D4A58; --o: 0; --ao: 0; position: absolute; left: 50%; top: 40px; width: var(--cw); height: calc(var(--cw) * 1.45); margin-left: calc(var(--cw) * -.5);
+  border-radius: 26px; overflow: hidden; color: #fff; text-align: left; cursor: pointer; background: linear-gradient(160deg, var(--a), var(--b)); will-change: transform;
+  transform: translateX(calc(var(--o) * var(--step))) translateZ(calc(var(--ao) * -110px)) rotateY(calc(var(--o) * -17deg)) scale(calc(1.07 - var(--ao) * .13));
+  transition: transform .75s cubic-bezier(.22,.8,.24,1), opacity .5s ease, filter .5s ease, box-shadow .5s ease;
+  box-shadow: 0 26px 40px -20px rgba(0,0,0,.7), inset 0 0 0 1.5px rgba(255,255,255,.14); filter: brightness(.7) saturate(.9); }
+.card:focus-visible { outline: 3px solid var(--vermilion); outline-offset: 3px; }
+.card[data-ao="0"] { filter: none; box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--a) 55%, #fff), 0 0 70px -8px var(--a), 0 34px 50px -22px rgba(0,0,0,.75); }
+.card[data-ao="3"], .card[data-ao="4"], .card[data-ao="5"] { opacity: 0; pointer-events: none; }
+.rail:not(.ready) .card { transform: translateX(0) translateZ(-160px) scale(.8); opacity: 0; }
+.card::before { content: ""; position: absolute; inset: 0; background: radial-gradient(120% 70% at 50% 0%, rgba(255,255,255,.2), transparent 60%); pointer-events: none; z-index: 1; }
+.card::after { content: ""; position: absolute; inset: auto 0 0 0; height: 48%; background: linear-gradient(to top, rgba(0,0,0,.66), transparent); pointer-events: none; z-index: 1; }
+.card img { position: absolute; bottom: 0; left: calc(50% + var(--x, 0) * 1%); height: calc(var(--h) * 100%); width: auto; max-width: none; transform: translateX(-50%) scaleX(var(--fx, 1)); pointer-events: none; user-select: none; }
+.card img.cover { left: 0; width: 100%; height: 100%; object-fit: cover; transform: none; }
+.card .ghost { position: absolute; left: 50%; top: 16%; transform: translateX(-50%); font-family: var(--native); font-weight: 700; line-height: 1; white-space: nowrap; color: rgba(255,255,255,.2); font-size: var(--gs, 8rem); pointer-events: none; }
+.card .t { position: absolute; left: 11%; right: 24%; bottom: 8%; font-family: var(--serif); font-size: clamp(1.3rem, 1.7vw, 1.75rem); line-height: 1.02; letter-spacing: -.02em; text-shadow: 0 2px 14px rgba(0,0,0,.45); z-index: 2; }
+.card .t small { display: block; font-family: var(--native); font-size: .8rem; font-weight: 500; letter-spacing: 0; margin-top: 6px; opacity: .88; }
+.card .go { position: absolute; right: 9%; bottom: 8%; width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.22); border: 1px solid rgba(255,255,255,.55); backdrop-filter: blur(4px); z-index: 2; opacity: 0; transform: scale(.6); transition: opacity .4s .15s, transform .4s .15s, background-color .2s; }
+.card[data-ao="0"] .go { opacity: 1; transform: none; }
+.card .go svg { width: 18px; height: 18px; }
+.card[data-ao="0"]:hover .go { background: rgba(255,255,255,.4); }
+.controls { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 6px; }
+.controls .ic { cursor: pointer; color: var(--ink); border-color: var(--line); }
+.controls .ic:hover { background: color-mix(in srgb, var(--ink) 8%, transparent); }
+.controls .ic.hot { color: #fff; border-color: var(--vermilion); }
+.dots { display: flex; gap: 10px; }
+.dots button { width: 9px; height: 9px; border-radius: 50%; border: 0; padding: 0; background: var(--line); transition: width .3s, background-color .3s; }
+.dots button[aria-current="true"] { background: var(--vermilion); width: 24px; border-radius: 6px; }
+.hero-copy .btn { margin-top: 28px; }
+
+.under { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; margin-top: 28px; }
+.under .btn { min-width: min(100%, 400px); min-height: 56px; }
+
+/* ---------- intro ---------- */
+.intro { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(32px, 6vw, 80px); align-items: center; }
+.intro h2 { margin: 16px 0 22px; }
+.intro .btn { margin-top: 28px; }
+.quote { font-family: var(--serif); font-style: italic; font-size: clamp(1.5rem, 2.6vw, 2.2rem); line-height: 1.22; letter-spacing: -.015em; padding-left: 28px; border-left: 3px solid var(--vermilion); }
+
+/* ---------- starting points ---------- */
+.head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 18px 40px; margin-bottom: 26px; }
+.tabs { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; }
+.chip { border: 1.5px solid var(--ink); background: none; border-radius: 999px; padding: 9px 20px; font-size: .78rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--wall); }
+.progs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.prog { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r); padding: 24px 22px 22px; display: flex; flex-direction: column; gap: 10px; min-height: 270px; }
+.prog .tag { font-size: .72rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--vermilion); }
+.prog h3 { font-size: 1.75rem; line-height: 1.05; letter-spacing: -.02em; }
+.prog p { color: var(--ink-2); font-size: .95rem; flex: 1; }
+.prog .know { align-self: flex-start; }
+
+/* ---------- sessions ---------- */
+.filters { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) auto; gap: 12px; margin-bottom: 8px; }
+.filters label { display: grid; gap: 4px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 10px 16px 8px; min-width: 0; }
+.filters .eyebrow { font-size: .66rem; }
+.filters select { appearance: none; -webkit-appearance: none; border: 0; background: transparent; font-weight: 600; width: 100%; padding: 2px 0; text-overflow: ellipsis; }
+.filters select:focus-visible { outline-offset: 6px; }
+.filters .reset { border: 0; background: none; font-size: .78rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; text-decoration: underline; text-underline-offset: 6px; padding: 0 12px; }
+.count { color: var(--ink-2); font-size: .9rem; margin: 14px 0 6px; min-height: 1.4em; }
+.sess { border-top: 1.5px solid var(--ink); }
+.srow { display: grid; grid-template-columns: 92px minmax(0, 1.6fr) minmax(0, 1fr) auto; gap: 10px 32px; padding: 26px 0; border-bottom: 1px solid var(--line); align-items: start; }
+.date { font-family: var(--serif); line-height: 1; }
+.date b { display: block; font-weight: 400; font-size: 3rem; letter-spacing: -.04em; }
+.date span { font-family: var(--sans); font-size: .72rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-2); }
+.srow h3 { font-size: 1.7rem; line-height: 1.05; letter-spacing: -.02em; }
+.srow .by { color: var(--ink-2); font-size: .95rem; margin-top: 6px; }
+.badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.badge { display: inline-flex; align-items: center; gap: 5px; font-size: .68rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; background: var(--leaf-bg); color: var(--leaf); padding: 3px 10px 3px 8px; border-radius: 999px; }
+.badge svg { width: 11px; height: 11px; }
+.facts { display: grid; gap: 3px; font-size: .95rem; }
+.facts span { color: var(--ink-2); }
+.facts .price { font-family: var(--serif); font-size: 1.6rem; line-height: 1.1; color: var(--ink); letter-spacing: -.02em; }
+.acts { display: flex; flex-direction: column; gap: 14px; align-items: flex-end; }
+.note { min-height: 1.4em; font-size: .9rem; color: var(--leaf); margin-top: 12px; }
+.empty { padding: 40px 0; color: var(--ink-2); border-bottom: 1px solid var(--line); }
+
+/* ---------- verification ---------- */
+.verify { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(32px, 6vw, 76px); }
+.verify h2 { margin: 16px 0 20px; }
+.chain { display: flex; align-items: stretch; margin-top: 30px; }
+.node { flex: 1 1 0; min-width: 0; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 14px 14px 16px; }
+.node b { display: block; font-family: var(--serif); font-weight: 400; font-size: 1.4rem; line-height: 1.1; }
+.node span { display: block; font-size: .85rem; color: var(--ink-2); margin-top: 6px; line-height: 1.35; }
+.node.you { background: var(--green); border-color: var(--green); color: #fff; }
+.node.you span { color: #fff; opacity: .8; }
+.link { flex: 0 0 30px; align-self: center; border-top: 2px dashed var(--vermilion); }
+.checks { list-style: none; margin: 0; padding: 0; border-top: 1.5px solid var(--ink); }
+.checks li { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 8px 24px; padding: 22px 0; border-bottom: 1px solid var(--line); }
+.checks .who { color: var(--vermilion); font-size: .7rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; padding-top: 6px; }
+.checks h3 { font-size: 1.6rem; letter-spacing: -.02em; margin-bottom: 4px; }
+.checks p { color: var(--ink-2); font-size: .97rem; }
+
+/* ---------- help me choose ---------- */
+.choose { background: radial-gradient(130% 120% at 12% 0%, var(--green) 0%, var(--green-2) 80%); color: #fff; border-radius: 28px; padding: clamp(28px, 5vw, 64px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
+.choose h2 { margin: 14px 0 14px; }
+.choose p { opacity: .8; max-width: 44ch; }
+.choose .eyebrow { color: #fff; opacity: .7; }
+.quiz { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); border-radius: 20px; padding: clamp(20px, 3vw, 30px); min-height: 280px; display: flex; flex-direction: column; gap: 16px; }
+.quiz .q { font-family: var(--serif); font-size: 1.6rem; line-height: 1.1; }
+.quiz .opts { display: grid; gap: 10px; }
+.quiz .opts button { text-align: left; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.22); color: #fff; border-radius: 12px; padding: 13px 16px; font-weight: 500; }
+.quiz .opts button:hover { background: rgba(255,255,255,.2); }
+.quiz .step { font-size: .7rem; letter-spacing: .22em; text-transform: uppercase; opacity: .7; }
+.quiz .res b { font-family: var(--serif); font-weight: 400; font-size: 2.4rem; line-height: 1; display: block; margin: 6px 0 10px; letter-spacing: -.025em; }
+.quiz .res p { opacity: .85; }
+.quiz .row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: auto; }
+.quiz .btn.ghost { color: #fff; border-color: rgba(255,255,255,.6); }
+
+/* ---------- teachers ---------- */
+.teach { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 76px); align-items: start; }
+.teach h2 { margin: 16px 0 20px; }
+.teach ul { margin: 24px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.teach li { padding: 12px 0; border-bottom: 1px solid var(--line); }
+.calc { background: var(--pill); color: #F3F1EC; padding: clamp(22px, 3vw, 34px); border-radius: 24px; }
+.calc .eyebrow { color: #F3F1EC; opacity: .65; }
+.field { display: grid; gap: 6px; margin-top: 20px; }
+.field .line { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.field output, .field input[type=number] { font-variant-numeric: tabular-nums; font-size: 1.05rem; }
+.calc input[type=number] { width: 120px; text-align: right; background: transparent; border: 1px solid rgba(255,255,255,.4); border-radius: 8px; color: #F3F1EC; padding: 6px 10px; }
+.calc input[type=range] { width: 100%; accent-color: #E8603A; }
+.result { margin-top: 26px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,.2); }
+.result .big { font-family: var(--serif); font-size: clamp(2.8rem, 6vw, 4.2rem); line-height: 1; letter-spacing: -.03em; margin-top: 6px; font-variant-numeric: tabular-nums; }
+.result dl { display: grid; grid-template-columns: 1fr auto; gap: 6px 16px; margin: 18px 0 0; font-size: .93rem; }
+.result dt { opacity: .7; }
+.result dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
+.calc .fine { margin-top: 16px; font-size: .8rem; opacity: .65; }
+
+/* ---------- join + footer ---------- */
+.join { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 76px); align-items: center; }
+.join h2 { margin: 16px 0 18px; }
+.form { border: 1px solid var(--line); background: var(--paper); padding: clamp(20px, 3vw, 32px); display: grid; gap: 16px; border-radius: 22px; }
+.seg { display: grid; grid-template-columns: 1fr 1fr; padding: 6px; border-radius: 16px; border: 1px solid var(--line); background: var(--wall); }
+.seg button { background: none; border: 0; padding: 12px; font-weight: 600; border-radius: 11px; }
+.seg button[aria-pressed="true"] { background: var(--vermilion); color: var(--vermilion-ink); }
+.form label { display: grid; gap: 6px; }
+.form input[type=text], .form select { width: 100%; background: var(--wall); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+.form .btn { width: 100%; min-height: 56px; }
+.status { min-height: 1.4em; font-size: .9rem; }
+
+footer { background: #0B0E0D; color: #ECEAE5; border-top: 1px solid #1d2321; padding-block: 52px 30px; }
+.fcols { display: grid; grid-template-columns: minmax(0, 1.2fr) 1px repeat(4, minmax(0, 1fr)); gap: clamp(20px, 3.2vw, 56px); align-items: start; }
+.fvr { align-self: stretch; background: #2a302d; }
+.fcols h4 { margin: 4px 0 16px; font-family: var(--sans); font-size: 1.15rem; font-weight: 600; letter-spacing: 0; text-transform: none; color: #fff; }
+.fcols a { display: block; text-decoration: none; padding: 6px 0; color: #d6d4cf; }
+.fcols a:hover { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
+.fabout .brand img { height: 52px; }
+footer .brand .on-light { display: none !important; }
+footer .brand .on-dark { display: block !important; }
+.fabout p { color: #d6d4cf; max-width: 28ch; margin: 18px 0 24px; line-height: 1.45; }
+.fcols .social { display: flex; gap: 14px; }
+.fcols .social a { width: 40px; height: 40px; padding: 0; border-radius: 50%; border: 1px solid #4a514e; display: grid; place-items: center; color: #fff; }
+.fcols .social a:hover { background: rgba(255,255,255,.12); text-decoration: none; }
+.social svg { width: 18px; height: 18px; }
+.fine { color: #8d928f; font-size: .85rem; margin-top: 36px; padding-top: 20px; border-top: 1px solid #232927; max-width: 90ch; }
+
+/* ---------- join + footer ---------- */
+.join { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 76px); align-items: center; }
+.join h2 { margin: 16px 0 18px; }
+.form { border: 1px solid var(--line); background: var(--paper); padding: clamp(20px, 3vw, 32px); display: grid; gap: 16px; border-radius: 22px; }
+.seg { display: grid; grid-template-columns: 1fr 1fr; padding: 6px; border-radius: 16px; border: 1px solid var(--line); background: var(--wall); }
+.seg button { background: none; border: 0; padding: 12px; font-weight: 600; border-radius: 11px; }
+.seg button[aria-pressed="true"] { background: var(--vermilion); color: var(--vermilion-ink); }
+.form label { display: grid; gap: 6px; }
+.form input[type=text], .form select { width: 100%; background: var(--wall); border: 1px solid var(--line); border-radius: 10px; padding: 12px; }
+.form .btn { width: 100%; min-height: 56px; }
+.status { min-height: 1.4em; font-size: .9rem; }
+
+
+.subscribe { background: #0B0E0D; color: #ECEAE5; padding-block: 56px clamp(40px, 5vw, 64px); }
+.sub-card { position: relative; overflow: hidden; display: grid; grid-template-columns: auto 1px minmax(0, 1fr) minmax(280px, 420px); align-items: center; gap: clamp(18px, 2.6vw, 40px); padding: 30px clamp(22px, 3.5vw, 48px) 30px clamp(56px, 8vw, 120px); border-radius: 36px; border: 1px solid rgba(76,195,138,.3); background: linear-gradient(100deg, #14432f 0%, #0e2e23 55%, #0b241c 100%); }
+.sub-leaf { position: absolute; left: 0; bottom: 0; width: clamp(104px, 10.5vw, 148px); height: auto; pointer-events: none; }
+.sub-ic { width: 76px; height: 76px; color: #55E394; }
+.sub-vr { width: 1px; height: 84px; background: rgba(255,255,255,.16); }
+.sub-card h2 { font-size: clamp(1.6rem, 2.3vw, 2.2rem); margin: 0 0 8px; color: #fff; letter-spacing: -.02em; }
+.sub-card p { margin: 0; color: #cdd8d1; }
+.sub-form { position: relative; }
+.sub-form input { width: 100%; height: 58px; border-radius: 999px; border: 1px solid rgba(255,255,255,.34); background: rgba(0,0,0,.12); color: #fff; font: inherit; padding: 0 160px 0 26px; }
+.sub-form input::placeholder { color: #b7c3bc; }
+.sub-form input:focus-visible { outline: 2px solid #55E394; outline-offset: 2px; }
+.sub-form button { position: absolute; right: 0; top: 0; height: 58px; display: inline-flex; align-items: center; gap: 10px; padding: 0 26px; border: 0; border-radius: 999px; background: var(--vermilion); color: #1A0B06; font: inherit; font-weight: 700; cursor: pointer; }
+.sub-form button:hover { filter: brightness(1.07); }
+.sub-form button svg { width: 18px; height: 18px; }
+.sub-msg { margin-top: 10px; min-height: 1.4em; padding-left: 26px; font-size: .9rem; color: #9fe9bf; }
+.trainer-cta { padding-block: 64px 20px; }
+.tc-card { --ch: clamp(190px, 16.5vw, 250px); position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: clamp(20px, 3vw, 48px); height: var(--ch); margin-top: calc(var(--ch) * .24); padding: 0 clamp(24px, 3vw, 48px) 0 calc(var(--ch) * 1.6); border-radius: 34px; border: 1px solid rgba(232,128,58,.4); background: linear-gradient(100deg, #4e2610 0%, #3a1c0c 50%, #2b160a 100%); color: #fff; }
+.tc-bg { position: absolute; inset: 0; border-radius: inherit; overflow: hidden; pointer-events: none; }
+.tc-bg::before { content: ""; position: absolute; left: calc(var(--ch) * -.18); top: calc(var(--ch) * .24); width: calc(var(--ch) * 1.8); aspect-ratio: 1; border-radius: 50%; background: linear-gradient(180deg, #D9822F 0%, #BF681F 100%); }
+.tc-leaf { position: absolute; right: 0; top: 50%; height: 78%; width: auto; transform: translateY(-50%); color: rgba(255,255,255,.34); }
+.tc-img { position: absolute; left: calc(var(--ch) * .2); bottom: 0; height: calc(var(--ch) * 1.3); width: auto; max-width: none; pointer-events: none; user-select: none; }
+.tc-card .eyebrow { color: #fff; margin: 0 0 8px; display: block; font-size: .72rem; }
+.tc-card h2 { font-size: clamp(1.6rem, 2.5vw, 2.5rem); margin: 0 0 10px; color: #fff; letter-spacing: -.02em; line-height: 1.05; }
+.tc-card p { margin: 0; max-width: 44ch; color: #e8d8cc; font-size: .98rem; }
+.tc-btn { display: inline-flex; align-items: center; gap: 12px; height: 56px; padding: 0 30px; border-radius: 999px; border: 1.5px solid #E8803A; color: #F29A57; font-weight: 700; text-decoration: none; white-space: nowrap; margin-right: clamp(0px, 6vw, 90px); position: relative; z-index: 1; }
+.tc-btn:hover { background: rgba(232,128,58,.16); color: #FFB074; }
+.tc-btn svg { width: 18px; height: 18px; }
+.lively { position: relative; overflow: hidden; isolation: isolate; }
+.lively > .wrap { position: relative; z-index: 1; }
+.lively::before { content: ""; position: absolute; inset: -20%; z-index: -1; pointer-events: none; filter: blur(12px);
+  background: radial-gradient(38% 48% at 14% 32%, rgba(76,195,138,.26), transparent 70%), radial-gradient(34% 44% at 86% 18%, rgba(232,96,58,.20), transparent 70%), radial-gradient(44% 52% at 62% 92%, rgba(217,160,49,.18), transparent 70%);
+  animation: lv-drift 16s ease-in-out infinite alternate; }
+.lively::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; color: var(--ink); opacity: .09;
+  background-image: radial-gradient(currentColor 1px, transparent 1.3px); background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000, transparent 75%); mask-image: radial-gradient(ellipse 80% 70% at 50% 0%, #000, transparent 75%); }
+.lv-mandala { position: absolute; right: -110px; top: -90px; width: clamp(280px, 32vw, 460px); color: var(--leaf); opacity: .16; z-index: 0; pointer-events: none; animation: lv-spin 120s linear infinite; }
+.lively .prog { position: relative; background: color-mix(in srgb, var(--paper) 78%, transparent); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); transition: transform .35s cubic-bezier(.22,.8,.24,1), box-shadow .35s, border-color .35s; }
+.lively .prog:hover { transform: translateY(-8px); border-color: color-mix(in srgb, var(--vermilion) 55%, var(--line)); box-shadow: 0 22px 40px -18px rgba(0,0,0,.45), 0 0 0 1px color-mix(in srgb, var(--vermilion) 25%, transparent); }
+@keyframes lv-drift { to { transform: translate3d(4%, -5%, 0) scale(1.1) rotate(3deg); } }
+@keyframes lv-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .lively::before, .lv-mandala { animation: none; } .lively .prog { transition: none; } }
+.lively.alt::before { background: radial-gradient(40% 50% at 88% 78%, rgba(76,195,138,.26), transparent 70%), radial-gradient(34% 44% at 10% 14%, rgba(217,160,49,.20), transparent 70%), radial-gradient(40% 50% at 40% 100%, rgba(232,96,58,.14), transparent 70%); animation-duration: 20s; }
+.lively.alt::after { -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 100%, #000, transparent 75%); mask-image: radial-gradient(ellipse 80% 70% at 50% 100%, #000, transparent 75%); }
+.lv-shield { position: absolute; right: -70px; bottom: -70px; width: clamp(200px, 22vw, 320px); color: var(--leaf); opacity: .11; z-index: 0; pointer-events: none; animation: lv-float 7s ease-in-out infinite alternate; }
+.lively .checks li { transition: opacity .6s ease, transform .6s cubic-bezier(.22,.8,.24,1), background-color .3s, padding-left .3s; }
+.lively .checks li:hover { background: color-mix(in srgb, var(--leaf) 9%, transparent); padding-left: 12px; }
+.rv { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s cubic-bezier(.22,.8,.24,1); }
+.rv.in { opacity: 1; transform: none; }
+@keyframes lv-float { to { transform: translateY(-16px) rotate(-2deg); } }
+@keyframes lv-flow { to { background-position: 12px 0; } }
+@keyframes lv-pulse { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--leaf) 0%, transparent); } 50% { box-shadow: 0 0 0 8px color-mix(in srgb, var(--leaf) 22%, transparent); } }
+@media (min-width: 721px) {
+  .lively .link { border-top: 0; height: 2px; background: repeating-linear-gradient(90deg, var(--vermilion) 0 6px, transparent 6px 12px); animation: lv-flow .8s linear infinite; }
+}
+.lively .node.you { animation: lv-pulse 2.8s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .lv-shield, .lively .link, .lively .node.you { animation: none; } .rv { opacity: 1; transform: none; transition: none; } }
+@media (max-width: 1100px) { .progs { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 960px) {
+  .intro, .verify, .teach, .join, .choose, .hero { grid-template-columns: minmax(0, 1fr); }
+  .hero h1 { max-width: 12ch; }
+  .rail { --cw: clamp(170px, 34vw, 250px); }
+  .corner { width: 64vw; height: 150px; }
+  .navbar { top: 18px; }
+  .brand img { height: 38px; }
+  .filters { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .filters .reset { justify-self: start; padding: 6px 0; }
+  .fcols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fvr { display: none; }
+  .tc-card { grid-template-columns: minmax(0, 1fr); height: auto; min-height: var(--ch); padding: 28px 28px 28px calc(var(--ch) * 1.7); }
+  .tc-btn { justify-self: start; margin-right: 0; }
+  .tc-leaf { display: none; }
+  .sub-card { grid-template-columns: auto minmax(0, 1fr); padding: 28px; }
+  .sub-vr, .sub-leaf { display: none; }
+  .sub-form { grid-column: 1 / -1; }
+  .fabout { grid-column: 1 / -1; }
+}
+@media (max-width: 720px) {
+  .tc-card { --ch: 200px; height: auto; padding: 150px 22px 26px; margin-top: 90px; border-radius: 28px; }
+  .tc-img { left: 50%; transform: translateX(-50%); bottom: auto; top: -80px; height: 240px; }
+  .tc-bg::before { left: 50%; transform: translateX(-50%); top: 20px; width: 300px; }
+  .sub-card { grid-template-columns: minmax(0, 1fr); border-radius: 28px; }
+  .sub-ic { display: none; }
+  body { font-size: 17px; }
+  .corner { width: 80vw; height: 108px; border-bottom-left-radius: 32px; }
+  .pillnav { gap: 6px; }
+  .pillnav .logo { margin-right: 4px; font-size: 1.4rem; }
+  .pillnav .logo small, .ic.opt { display: none; }
+  .ic { width: 40px; height: 40px; }
+  .hero { padding-top: 84px; }
+      .rail { --cw: 54vw; --step: calc(var(--cw) * .62); }
+  .controls { margin-top: 0; }
+  .progs { grid-template-columns: minmax(0, 1fr); }
+  .srow { grid-template-columns: 64px minmax(0, 1fr); gap: 8px 16px; }
+  .date b { font-size: 2.2rem; }
+  .srow .facts, .srow .acts { grid-column: 2; }
+  .acts { flex-direction: row; align-items: center; justify-content: flex-start; }
+  .filters { grid-template-columns: minmax(0, 1fr); }
+  .chain { flex-direction: column; }
+  .link { flex: 0 0 24px; border-top: 0; border-left: 2px dashed var(--vermilion); align-self: flex-start; margin-left: 24px; }
+  .checks li { grid-template-columns: minmax(0, 1fr); }
+  .hero-copy .btn { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .card, .card .go, .dots button { transition-duration: .01s; } }
+[hidden] { display: none !important; }
+</style>
+
+</head><body>
+<div class="corner" aria-hidden="true">
+  <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round">
+    <path d="M60 8 Q60 60 112 60 Q60 60 60 112 Q60 60 8 60 Q60 60 60 8Z"/>
+    <path d="M60 28 Q60 60 92 60 Q60 60 60 92 Q60 60 28 60 Q60 60 60 28Z"/>
+    <circle cx="60" cy="60" r="44"/><circle cx="60" cy="60" r="56"/>
+  </svg>
+</div>
+
+<header class="navbar">
+  <div class="wrap">
+    <a class="brand" href="#top" id="top" aria-label="ZH Health &amp; Wellness home"><img class="on-light" src="img/logo.png" alt="ZH Health &amp; Wellness"><img class="on-dark" src="img/logo-light.png" alt="" aria-hidden="true"></a>
+    <nav class="pillnav" aria-label="Main">
+      <a class="ic opt" href="#teach" hidden aria-label="Teach with us"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7.5" r="3.2"/><path d="M5 20c.8-3.6 3.6-5.6 7-5.6s6.2 2 7 5.6"/></svg></a>
+      <a class="ic opt" href="#join" aria-label="Early access"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3 19c.6-3.2 3-5 6-5s5.4 1.8 6 5M15.5 14.2c2.4-.3 4.6 1 5.5 3.8"/></svg></a>
+      <a class="ic" href="#sessions" aria-label="Search sessions"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></a>
+      <button class="ic hot" type="button" id="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M5 8h14M5 12h14M9 16h10"/></svg></button>
+      <div class="menu" id="menu">
+        <a href="#practices">Practices</a>
+        <a href="#sessions">Upcoming sessions</a>
+        <a href="#verified">How we verify</a>
+        <a href="#join">Early access</a>
+        <div class="langs" role="group" aria-label="Language">
+          <button type="button" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="hi" aria-pressed="false" lang="hi">हिंदी</button>
+          <button type="button" data-lang="ml" aria-pressed="false" lang="ml">മലയാളം</button>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="wrap hero" id="practices">
+  <div class="hero-copy">
+    <h1 id="h1">yoga, kalari &amp; more</h1>
+    <p class="tagline" id="tagline">Begin with a teacher whose identity and training we have checked.</p>
+    <a class="btn" href="#sessions" id="cta">Find a teacher <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+  </div>
+  <div class="stage">
+    <div class="rail" id="rail" tabindex="0" role="group" aria-roledescription="carousel" aria-label="Practices. Use left and right arrow keys, or swipe."></div>
+    <div class="controls">
+      <button class="ic" type="button" id="prev" aria-label="Previous practice"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+      <div class="dots" id="dots" aria-label="Practices"></div>
+      <button class="ic hot" type="button" id="next" aria-label="Next practice"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap intro">
+    <div>
+      <span class="eyebrow">Begin your practice</span>
+      <h2>Find the right teacher, wherever you are.</h2>
+      <p class="lede">Learn yoga, kalaripayattu, silambam, Muay Thai or strength training from teachers whose identity, training and lineage have been checked. Meet at a studio, at your home, or online.</p>
+      <p class="lede" style="margin-top:14px">Book a trial, pay by UPI, and your money moves to the teacher only after the session is done.</p>
+      <a class="btn" href="#join">Get early access</a>
+    </div>
+    <p class="quote">In the old schools you did not pick a technique first. You picked a teacher, and the teacher shaped the rest.</p>
+  </div>
+</section>
+
+<section class="band tint lively">
+  <svg class="lv-mandala" viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" aria-hidden="true"><path d="M60 8 Q60 60 112 60 Q60 60 60 112 Q60 60 8 60 Q60 60 60 8Z"/><path d="M60 28 Q60 60 92 60 Q60 60 60 92 Q60 60 28 60 Q60 60 60 28Z"/><circle cx="60" cy="60" r="44"/><circle cx="60" cy="60" r="56"/></svg>
+  <div class="wrap">
+    <div class="head">
+      <div><span class="eyebrow">Programmes for you</span><h2 style="margin-top:14px">Recommended starting points</h2></div>
+      <span class="eyebrow">Sample programmes</span>
+    </div>
+    <div class="tabs" id="tabs" role="group" aria-label="Filter programmes"></div>
+    <div class="progs" id="progs"></div>
+  </div>
+</section>
+
+<section class="band" id="sessions">
+  <div class="wrap">
+    <div class="head">
+      <div><span class="eyebrow">Upcoming</span><h2 style="margin-top:14px">Sessions with verified teachers</h2></div>
+      <span class="eyebrow">Sample sessions</span>
+    </div>
+    <div class="filters">
+      <label><span class="eyebrow">Practice</span>
+        <select id="f-p"><option value="all">All practices</option><option value="yoga">Yoga</option><option value="kalari">Kalaripayattu</option><option value="silambam">Silambam</option><option value="muaythai">Muay Thai</option><option value="strength">Strength and training</option><option value="ayurveda">Ayurveda and nutrition</option></select></label>
+      <label><span class="eyebrow">City</span>
+        <select id="f-c"><option value="all">Anywhere</option><option value="Bengaluru">Bengaluru</option><option value="Kochi">Kochi</option></select></label>
+      <label><span class="eyebrow">Format</span>
+        <select id="f-f"><option value="all">Any format</option><option value="Online">Online</option><option value="In person">In person</option><option value="Home visit">Home visit</option></select></label>
+      <button class="reset" type="button" id="reset">Clear</button>
+    </div>
+    <div class="count" id="count" aria-live="polite"></div>
+    <div class="sess" id="sess"></div>
+    <p class="note" id="note" role="status"></p>
+  </div>
+</section>
+
+<section class="band tint lively alt" id="verified">
+  <svg class="lv-shield" viewBox="0 0 100 120" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M50 6L90 20V58C90 86 72 106 50 114C28 106 10 86 10 58V20Z"/><path d="M50 16L80 26V58C80 79 66 96 50 103C34 96 20 79 20 58V26Z" opacity=".5"/><path d="M32 60L46 74L70 44" stroke-width="3"/></svg>
+  <div class="wrap verify">
+    <div>
+      <span class="eyebrow">Verification</span>
+      <h2>A certificate is not the only proof.</h2>
+      <p class="lede">Many of the best kalari and silambam masters learned from a guru, not a course. So we check the line of teaching and show it on the profile.</p>
+      <div class="chain" aria-label="Lineage: guru, teacher, you">
+        <div class="node"><b>Guru</b><span>Named, with school and place</span></div>
+        <div class="link"></div>
+        <div class="node"><b>Teacher</b><span>Years trained, references, video review</span></div>
+        <div class="link"></div>
+        <div class="node you"><b>You</b><span>See the whole chain before you book</span></div>
+      </div>
+    </div>
+    <ol class="checks">
+      <li><span class="who">Everyone</span><div><h3>Identity</h3><p>Government ID matched to a live selfie, phone number confirmed by OTP. Documents stay private and never show on the profile.</p></div></li>
+      <li><span class="who">Where a certificate exists</span><div><h3>Credentials</h3><p>Yoga teacher training, fitness certifications and medical or Ayurveda degrees are checked with the issuing body where possible. The issuer is named on the profile.</p></div></li>
+      <li><span class="who">Kalari, silambam</span><div><h3>Lineage</h3><p>Named guru and school, two references from other practitioners, a recorded demonstration, and a visit from our team in launch cities.</p></div></li>
+      <li><span class="who">After joining</span><div><h3>Trial-tested</h3><p>The badge appears once a teacher keeps a 4.5 rating across their first ten sessions, and can be removed if it falls.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="trainer-cta" aria-labelledby="tc-h">
+  <div class="wrap">
+    <div class="tc-card">
+      <div class="tc-bg" aria-hidden="true"><svg class="tc-leaf" viewBox="0 0 100 200" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"><path d="M100.0 100.0 C99.7 48.7 63.5 7.5 14.0 14.0 C7.5 63.5 48.7 99.7 100.0 100.0 z"/><path d="M100.0 100.0 L14.0 14.0"/><path d="M100.0 100.0 C48.7 100.3 7.5 136.5 14.0 186.0 C63.5 192.5 99.7 151.3 100.0 100.0 z"/><path d="M100.0 100.0 L14.0 186.0"/></svg></div>
+      <img class="tc-img" src="img/trainer.webp" alt="" draggable="false">
+      <div><span class="eyebrow">Are you a trainer?</span><h2 id="tc-h">Join ZH Health &amp; Wellness</h2><p>Grow your practice, reach more clients and be part of a trusted wellness community.</p></div>
+      <a class="tc-btn" href="#join">Become a Trainer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="choose" hidden><!-- hidden for now: quiz section -->
+  <div class="wrap">
+    <div class="choose">
+      <div>
+        <span class="eyebrow">Still unsure where to start?</span>
+        <h2>Answer two questions.</h2>
+        <p>We will suggest a practice and show you the teachers who fit.</p>
+      </div>
+      <div class="quiz" id="quiz" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<section class="band tint" id="teach" hidden><!-- hidden for now: teachers section -->
+  <div class="wrap teach">
+    <div>
+      <span class="eyebrow">For teachers and gurus</span>
+      <h2>Free to list. We earn when you do.</h2>
+      <p class="lede">No joining fee. We take a share of each completed booking and pay you every week to your bank account or UPI.</p>
+      <ul>
+        <li>Your profile shows your lineage, languages and availability.</li>
+        <li>Clients book, pay and reschedule without chasing you on chat.</li>
+        <li>GST invoices and payout statements are generated for you.</li>
+        <li>Academies and kalari schools can list several teachers together.</li>
+      </ul>
+    </div>
+    <div class="calc" role="group" aria-label="Earnings estimate">
+      <span class="eyebrow">Estimate your month</span>
+      <div class="field"><div class="line"><label for="c-price">Your price per session</label><input id="c-price" type="number" inputmode="numeric" min="100" max="10000" step="50" value="800"></div></div>
+      <div class="field"><div class="line"><label for="c-sess">Sessions per week</label><output id="c-sess-o" for="c-sess">8</output></div><input id="c-sess" type="range" min="1" max="30" value="8"></div>
+      <div class="result">
+        <span class="eyebrow">You would receive about</span>
+        <div class="big" id="c-net">₹0</div>
+        <dl><dt>Bookings value</dt><dd id="c-gross">₹0</dd><dt>Platform share (15%)</dt><dd id="c-fee">₹0</dd></dl>
+        <p class="fine" style="border:0;margin:16px 0 0;padding:0;color:inherit">Illustration using 4.33 weeks a month. The 15% share is a working figure and may change.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="join">
+  <div class="wrap join">
+    <div>
+      <span class="eyebrow">Early access</span>
+      <h2>Be there when the first city opens.</h2>
+      <p class="lede">Tell us what you practise or teach and where. We will message you when Bengaluru and Kochi open.</p>
+    </div>
+    <form class="form" id="join-form" novalidate>
+      <div class="seg" role="group" aria-label="I am">
+        <button type="button" data-role="learn" aria-pressed="true">I want to learn</button>
+        <button type="button" data-role="teach" aria-pressed="false">I teach</button>
+      </div>
+      <label for="j-name"><span class="eyebrow">Name</span><input id="j-name" type="text" autocomplete="name"></label>
+      <label for="j-contact"><span class="eyebrow">Email or WhatsApp number</span><input id="j-contact" type="text" autocomplete="off"></label>
+      <label for="j-prac"><span class="eyebrow" id="j-prac-l">What would you like to learn?</span>
+        <select id="j-prac"><option>Yoga</option><option>Kalaripayattu</option><option>Silambam</option><option>Muay Thai</option><option>Strength and training</option><option>Ayurveda and nutrition</option></select></label>
+      <button class="btn" type="submit">Join the list</button>
+      <div class="status" id="j-status" role="status"></div>
+    </form>
+  </div>
+</section>
+</main>
+
+<section class="subscribe" aria-labelledby="sub-h">
+  <div class="wrap">
+    <div class="sub-card">
+      <svg class="sub-leaf" viewBox="0 0 150 150" aria-hidden="true"><defs><linearGradient id="slg1" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#3FB37A" stop-opacity=".10"/><stop offset="1" stop-color="#6FE0A5" stop-opacity=".34"/></linearGradient><linearGradient id="slg2" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#3FB37A" stop-opacity=".16"/><stop offset="1" stop-color="#7BE8AE" stop-opacity=".42"/></linearGradient></defs><path d="M24.0 158.0 C53.2 142.5 78.6 90.6 62.0 34.0 C16.5 71.6 8.5 128.8 24.0 158.0 z" fill="url(#slg1)" stroke="#9BF0C0" stroke-opacity=".22" stroke-width="1"/><path d="M24.0 158.0 L60.5 39.0" stroke="#fff" stroke-opacity=".2" stroke-width="1.2" fill="none"/><path d="M35.4 120.8 L56.9 105.7" stroke="#fff" stroke-opacity=".09" stroke-width="1" fill="none"/><path d="M35.4 120.8 L26.1 96.2" stroke="#fff" stroke-opacity=".09" stroke-width="1" fill="none"/><path d="M42.2 98.5 L63.7 83.4" stroke="#fff" stroke-opacity=".09" stroke-width="1" fill="none"/><path d="M42.2 98.5 L32.9 73.9" stroke="#fff" stroke-opacity=".09" stroke-width="1" fill="none"/><path d="M49.1 76.2 L65.6 59.5" stroke="#fff" stroke-opacity=".09" stroke-width="1" fill="none"/><path d="M49.1 76.2 L44.7 53.1" stroke="#fff" stroke-opacity=".09" stroke-width="1" fill="none"/><path d="M-6.0 162.0 C28.3 169.1 96.4 148.9 142.0 100.0 C75.1 98.2 13.0 132.6 -6.0 162.0 z" fill="url(#slg2)" stroke="#9BF0C0" stroke-opacity=".22" stroke-width="1"/><path d="M-6.0 162.0 L136.1 102.5" stroke="#fff" stroke-opacity=".2" stroke-width="1.2" fill="none"/><path d="M38.4 143.4 L67.4 146.1" stroke="#fff" stroke-opacity=".09" stroke-width="1" fill="none"/><path d="M38.4 143.4 L56.8 120.9" stroke="#fff" stroke-opacity=".09" stroke-width="1" fill="none"/><path d="M65.0 132.2 L94.0 134.9" stroke="#fff" stroke-opacity=".09" stroke-width="1" fill="none"/><path d="M65.0 132.2 L83.4 109.7" stroke="#fff" stroke-opacity=".09" stroke-width="1" fill="none"/><path d="M91.7 121.1 L118.9 119.7" stroke="#fff" stroke-opacity=".09" stroke-width="1" fill="none"/><path d="M91.7 121.1 L111.8 102.6" stroke="#fff" stroke-opacity=".09" stroke-width="1" fill="none"/></svg>
+      <svg class="sub-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="M3.5 7l8.5 6 8.5-6"/></svg>
+      <div class="sub-vr" aria-hidden="true"></div>
+      <div><h2 id="sub-h">Stay in the Wellness Loop</h2><p>Get expert tips, new programs and platform updates — straight to your inbox.</p></div>
+      <form class="sub-form" id="sub-form" novalidate>
+        <input type="email" id="sub-email" name="email" placeholder="Enter your email address" autocomplete="email" aria-label="Email address" required>
+        <button type="submit">Subscribe <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></button>
+        <div class="sub-msg" id="sub-msg" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fcols">
+      <div class="fabout"><a class="brand" href="#top" aria-label="ZH Health &amp; Wellness home"><img class="on-light" src="img/logo.png" alt="ZH Health &amp; Wellness"><img class="on-dark" src="img/logo-light.png" alt="" aria-hidden="true"></a>
+        <p>A platform to discover, book and train with trusted wellness experts — online or in person.</p>
+        <div class="social"><a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".8" fill="currentColor"/></svg></a><a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor"/></svg></a><a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v7M7 7v.01M11 17v-7M11 13c0-2 1.5-3 3-3s3 1 3 3v4"/></svg></a><a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5l14 14M19 5L5 19"/></svg></a></div></div>
+      <div class="fvr" aria-hidden="true"></div>
+      <div><h4>Explore</h4><a href="#practices">Practices</a><a href="#sessions">Programs</a><a href="#verified">Trainers</a><a href="#">How It Works</a></div>
+      <div><h4>For Trainers</h4><a href="#join">Become a Trainer</a><a href="#">Trainer Guide</a><a href="#">Commission &amp; Fees</a><a href="#">Success Stories</a></div>
+      <div><h4>Company</h4><a href="#">About ZH</a><a href="#join">Contact Us</a><a href="#">Careers</a><a href="#">Blog</a></div>
+      <div><h4>Support</h4><a href="#">Help Center</a><a href="#">Terms of Service</a><a href="#">Privacy Policy</a><a href="#">Refund Policy</a></div>
+    </div>
+    <p class="fine">Design preview. Teachers, sessions, prices and ratings are placeholders, the people shown are illustrative images, and the Hindi and Malayalam text needs native review before launch. The forms here do not send or save anything.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var inr = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 });
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>';
+  var tick = '<svg viewBox="0 0 12 12" aria-hidden="true"><polyline points="2,6.5 5,9.5 10,3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  /* ---------- practices ---------- */
+  var P = {
+    yoga:     { g: 'body',    t: 'Yoga',                nat: 'योग',      lang: 'hi', a: '#2F8C8E', b: '#0D4856', img: 'img/yoga.webp',     h: 0.74, x: 0 },
+    trainer:  { g: 'body',    t: 'Personal<br>Training', nat: 'फिटनेस',   lang: 'hi', a: '#3A74B8', b: '#14305F', img: 'img/trainer.webp',  h: 0.88, x: 0, f: 'strength' },
+    strength: { g: 'body',    t: 'Strength<br>&amp; Power', nat: 'शक्ति',   lang: 'hi', a: '#E58C2E', b: '#9C4010', img: 'img/strength.webp', h: 0.72, x: 3 },
+    ayurveda: { g: 'body',    t: 'Ayurveda',            nat: 'आयुर्वेद', lang: 'hi', a: '#6FA34A', b: '#24502B', img: 'img/ayurveda.webp', cover: 1, f: 'ayurveda' },
+    kalari:   { g: 'martial', t: 'Kalari-<br>payattu',  nat: 'കളരി',     lang: 'ml', a: '#1F7A5C', b: '#0A3226', img: 'img/kalari.webp',   h: 0.66, x: -6 },
+    muaythai: { g: 'martial', t: 'Muay<br>Thai',        nat: 'มวยไทย',   lang: 'th', a: '#4A4FB0', b: '#171A55', img: 'img/muaythai.webp', h: 0.72, x: 0, flip: 1 },
+    silambam: { g: 'martial', t: 'Silambam',            nat: 'சிலம்பம்', lang: 'ta', a: '#D9A031', b: '#86460F', img: 'img/silambam.webp', h: 0.62, x: 0 }
+  };
+  var LABEL = { yoga: 'Yoga', kalari: 'Kalaripayattu', silambam: 'Silambam', muaythai: 'Muay Thai', strength: 'Strength and training', ayurveda: 'Ayurveda and nutrition' };
+  var group = 'body';
+
+  var rail = $('#rail'), cards = [], act = 0, timer = null, paused = false, dragged = false;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  function cardHTML(k) {
+    var p = P[k], pr = p.f || k;
+    var fig = p.img
+      ? '<img' + (p.cover ? ' class="cover"' : '') + ' src="' + p.img + '" alt="" style="--h:' + (p.h || 1) + ';--x:' + (p.x || 0) + (p.flip ? ';--fx:-1' : '') + '" draggable="false">'
+      : '<span class="ghost" aria-hidden="true" lang="' + p.lang + '" style="--gs:' + p.gs + '">' + p.nat + '</span>';
+    var plain = p.t.replace(/<br>/g, ' ').replace(/&amp;/g, '&').replace('-', '');
+    return '<div class="card" role="button" tabindex="-1" data-pick="' + pr + '" style="--a:' + p.a + ';--b:' + p.b + '" aria-label="' + esc(plain) + ' sessions">' +
+      fig + '<span class="t">' + p.t + '<small lang="' + p.lang + '">' + p.nat + '</small></span><span class="go" aria-hidden="true">' + arrow + '</span></div>';
+  }
+  function place() {
+    var n = cards.length;
+    cards.forEach(function (c, i) {
+      var o = ((i - act) % n + n) % n; if (o > n / 2) o -= n;
+      var ao = Math.abs(o);
+      c.style.setProperty('--o', o); c.style.setProperty('--ao', ao);
+      c.dataset.ao = ao; c.tabIndex = ao === 0 ? 0 : -1; c.setAttribute('aria-hidden', ao > 2 ? 'true' : 'false');
+    });
+    $$('#dots button').forEach(function (b, i) { if (i === act) b.setAttribute('aria-current', 'true'); else b.removeAttribute('aria-current'); });
+  }
+  function go(d) { act = (act + d + cards.length) % cards.length; place(); auto(); }
+  function auto() {
+    clearInterval(timer);
+    if (reduce.matches) return;
+    timer = setInterval(function () { if (!paused && !document.hidden) { act = (act + 1) % cards.length; place(); } }, 4200);
+  }
+  function renderRail() {
+    var keys = Object.keys(P).filter(function (k) { return P[k].g === group; });
+    var rest = Object.keys(P).filter(function (k) { return P[k].g !== group; });
+    rail.classList.remove('ready');
+    rail.innerHTML = [keys[keys.length - 1]].concat(keys.slice(0, -1)).map(cardHTML).join('') +
+      '<div class="card" role="button" tabindex="-1" data-pick="all" style="--a:#1F6A4E;--b:#07281F" aria-label="See all practices sessions"><img class="cover" src="img/all.webp" alt="" draggable="false"><span class="t">See all<br>practices</span><span class="go" aria-hidden="true">' + arrow + '</span></div>' +
+      rest.map(cardHTML).join('');
+    cards = $$('.card', rail); act = 1;
+    var h = ''; cards.forEach(function (c, i) { h += '<button type="button" data-i="' + i + '" aria-label="Show ' + esc(c.getAttribute('aria-label').replace(' sessions', '')) + '"></button>'; });
+    $('#dots').innerHTML = h;
+    place();
+    requestAnimationFrame(function () { requestAnimationFrame(function () { rail.classList.add('ready'); }); });
+    auto();
+  }
+  $('#dots').addEventListener('click', function (e) { var b = e.target.closest('[data-i]'); if (b) { act = +b.dataset.i; place(); auto(); } });
+  $('#prev').addEventListener('click', function () { go(-1); });
+  $('#next').addEventListener('click', function () { go(1); });
+  var stage = $('.stage');
+  stage.addEventListener('mouseenter', function () { paused = true; });
+  stage.addEventListener('mouseleave', function () { paused = false; });
+  stage.addEventListener('focusin', function () { paused = true; });
+  stage.addEventListener('focusout', function () { paused = false; });
+  var sx = null;
+  rail.addEventListener('pointerdown', function (e) { sx = e.clientX; });
+  window.addEventListener('pointerup', function (e) {
+    if (sx === null) return;
+    var dx = e.clientX - sx; sx = null;
+    if (Math.abs(dx) > 45) { dragged = true; setTimeout(function () { dragged = false; }, 0); go(dx < 0 ? 1 : -1); }
+  });
+  window.addEventListener('pointercancel', function () { sx = null; });
+  var wheelAt = 0;
+  rail.addEventListener('wheel', function (e) {
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 8) {
+      e.preventDefault();
+      if (Date.now() - wheelAt > 380) { wheelAt = Date.now(); go(e.deltaX > 0 ? 1 : -1); }
+    }
+  }, { passive: false });
+  rail.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); go(e.key === 'ArrowRight' ? 1 : -1); cards[act].focus({ preventScroll: true }); }
+    else if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('[data-pick]')) { e.preventDefault(); if (e.target === cards[act]) openSessions(e.target.dataset.pick); else { act = cards.indexOf(e.target); place(); auto(); } }
+  });
+  rail.addEventListener('click', function (e) {
+    if (dragged) return;
+    var c = e.target.closest('.card'); if (!c) return;
+    var i = cards.indexOf(c);
+    if (i === act) openSessions(c.dataset.pick);
+    else if (+c.dataset.ao <= 2) { act = i; place(); auto(); }
+  });
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) auto(); });
+
+  function openSessions(k) {
+    $('#f-p').value = k in LABEL ? k : 'all';
+    renderSessions();
+    $('#sessions').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  /* ---------- nav menu + language ---------- */
+  var mb = $('#menu-btn'), menu = $('#menu');
+  mb.addEventListener('click', function (e) { e.stopPropagation(); var o = menu.classList.toggle('open'); mb.setAttribute('aria-expanded', o); });
+  document.addEventListener('click', function (e) { if (!menu.contains(e.target)) { menu.classList.remove('open'); mb.setAttribute('aria-expanded', 'false'); } });
+  menu.addEventListener('click', function (e) { if (e.target.closest('a')) { menu.classList.remove('open'); mb.setAttribute('aria-expanded', 'false'); } });
+  var I18N = {
+    en: { h1: 'yoga, kalari &amp; more', tag: 'Begin with a teacher whose identity and training we have checked.', cta: 'Find a teacher', cls: '' },
+    hi: { h1: 'योग, कलरी और बहुत कुछ', tag: 'ऐसे गुरु से शुरुआत करें जिनकी पहचान और प्रशिक्षण हमने जाँचा है।', cta: 'गुरु खोजें', cls: 'native' },
+    ml: { h1: 'യോഗ, കളരി, കൂടുതലും', tag: 'ഐഡന്റിറ്റിയും പരിശീലനവും ഞങ്ങൾ പരിശോധിച്ച ഗുരുവിനൊപ്പം തുടങ്ങൂ.', cta: 'ഗുരുവിനെ കണ്ടെത്തുക', cls: 'native' }
+  };
+  $$('[data-lang]').forEach(function (b) {
+    b.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var k = b.dataset.lang, t = I18N[k];
+      $$('[data-lang]').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      var h = $('#h1'); h.innerHTML = t.h1; h.className = t.cls; h.lang = k;
+      $('#tagline').textContent = t.tag; $('#tagline').lang = k;
+      $('#cta').firstChild.nodeValue = t.cta + ' ';
+    });
+  });
+
+  /* ---------- starting-point programmes (samples) ---------- */
+  var PG = [
+    { c: 'yoga', tag: 'Yoga · 4 weeks', t: 'Hatha foundations', d: 'Two classes a week covering breath, alignment and the core postures. Gentle for beginners.', k: ['Recommended'] },
+    { c: 'yoga', tag: 'Yoga · Online', t: '20-minute morning flow', d: 'A short daily sequence you can follow from a mat in your bedroom, with a teacher on video.', k: ['Recommended'] },
+    { c: 'kalari', tag: 'Kalaripayattu · Studio', t: 'Meythari basics', d: 'The conditioning sequences that start every kalari student: stances, kicks and body control.', k: ['Recommended'] },
+    { c: 'kalari', tag: 'Kalaripayattu · Kids', t: 'Kalari for children, 8 to 12', d: 'Games, flexibility and first steps in the pit, with a parent or guardian account.', k: ["Children's"] },
+    { c: 'silambam', tag: 'Silambam · Studio', t: 'Staff basics', d: 'Grip, footwork and the first spinning patterns with a bamboo staff.', k: [] },
+    { c: 'muaythai', tag: 'Muay Thai · Studio', t: 'Kicks and clinch, level one', d: 'Technique first: stance, teeps and roundhouse kicks on pads, with no sparring.', k: [] },
+    { c: 'strength', tag: 'Strength · Home visit', t: 'Form-first lifting', d: 'Learn the squat, hinge and press properly before you add weight.', k: ['Recommended'] },
+    { c: 'strength', tag: 'Training · Online', t: 'Women-only strength block', d: 'Six weeks of coached sessions with a woman trainer, at home or online.', k: ["Women's"] },
+    { c: 'yoga', tag: 'Yoga · Studio', t: 'Prenatal yoga', d: 'Safe movement, breath and relaxation through each trimester, with a certified teacher.', k: ["Women's"] },
+    { c: 'ayurveda', tag: 'Nutrition · Online', t: 'Seasonal diet reset', d: 'A one-to-one consultation and a simple eating plan from a registered Ayurveda practitioner.', k: [] },
+    { c: 'strength', tag: 'Mobility · Online', t: 'Desk-worker mobility', d: 'Twenty minutes, three times a week, for stiff necks, hips and lower backs.', k: [] }
+  ];
+  var TABS = ['Recommended', 'Yoga', 'Kalaripayattu', 'Martial arts', 'Strength', "Children's", "Women's"];
+  var tab = 'Recommended';
+  function renderProgs() {
+    $('#tabs').innerHTML = TABS.map(function (t) { return '<button class="chip" type="button" data-tab="' + esc(t) + '" aria-pressed="' + (t === tab) + '">' + esc(t) + '</button>'; }).join('');
+    var list = PG.filter(function (p) {
+      if (tab === 'Recommended') return p.k.indexOf('Recommended') > -1;
+      if (tab === 'Yoga') return p.c === 'yoga';
+      if (tab === 'Kalaripayattu') return p.c === 'kalari';
+      if (tab === 'Martial arts') return ['kalari', 'silambam', 'muaythai'].indexOf(p.c) > -1;
+      if (tab === 'Strength') return p.c === 'strength';
+      return p.k.indexOf(tab) > -1;
+    }).slice(0, 8);
+    $('#progs').innerHTML = list.map(function (p) {
+      return '<article class="prog"><span class="tag">' + esc(p.tag) + '</span><h3>' + esc(p.t) + '</h3><p>' + esc(p.d) + '</p><button class="know" type="button" data-know="' + p.c + '">Know more</button></article>';
+    }).join('');
+  }
+  $('#tabs').addEventListener('click', function (e) { var b = e.target.closest('[data-tab]'); if (b) { tab = b.dataset.tab; renderProgs(); } });
+  $('#progs').addEventListener('click', function (e) { var b = e.target.closest('[data-know]'); if (b) openSessions(b.dataset.know); });
+
+  /* ---------- sessions (samples) ---------- */
+  var MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  var S = [
+    { d: '2026-11-05', c: 'yoga', t: 'Free trial: morning yoga flow', by: 'Meera Nambiar', proof: '500-hour certified', city: 'Online', f: 'Online', lang: 'Hindi, English', price: 0 },
+    { d: '2026-11-06', c: 'ayurveda', t: 'Seasonal diet reset, consultation', by: 'Dr. Lakshmi Pillai', proof: 'BAMS, registered', city: 'Kochi', f: 'Online', lang: 'Malayalam, English', price: 1000 },
+    { d: '2026-11-07', c: 'yoga', t: 'Hatha foundations, 4 weeks', by: 'Meera Nambiar', proof: '500-hour certified', city: 'Bengaluru', f: 'In person', lang: 'English, Malayalam', price: 2400 },
+    { d: '2026-11-07', c: 'kalari', t: 'Meythari basics, first class', by: 'Anil Gurukkal', proof: 'Lineage reviewed', city: 'Kochi', f: 'In person', lang: 'Malayalam, English', price: 700 },
+    { d: '2026-11-08', c: 'silambam', t: 'Silambam staff basics', by: 'Selvi Murugan', proof: 'Lineage reviewed', city: 'Bengaluru', f: 'In person', lang: 'Tamil, English', price: 650 },
+    { d: '2026-11-09', c: 'kalari', t: 'Kalari online introduction', by: 'Rahul Menon', proof: 'Lineage reviewed', city: 'Online', f: 'Online', lang: 'Malayalam, Hindi', price: 600 },
+    { d: '2026-11-11', c: 'muaythai', t: 'Muay Thai kicks, level one', by: 'Arjun Shetty', proof: 'Certified coach', city: 'Bengaluru', f: 'In person', lang: 'English, Kannada', price: 900 },
+    { d: '2026-11-12', c: 'strength', t: 'Form-first lifting at your home', by: 'Divya Rao', proof: 'NASM-CPT', city: 'Bengaluru', f: 'Home visit', lang: 'English, Kannada', price: 1200 },
+    { d: '2026-11-14', c: 'kalari', t: 'Kalari for children, 8 to 12', by: 'Anil Gurukkal', proof: 'Lineage reviewed', city: 'Kochi', f: 'In person', lang: 'Malayalam', price: 1200 }
+  ];
+  function renderSessions() {
+    var p = $('#f-p').value, c = $('#f-c').value, f = $('#f-f').value;
+    var list = S.filter(function (s) { return (p === 'all' || s.c === p) && (c === 'all' || s.city === c || s.city === 'Online') && (f === 'all' || s.f === f); });
+    $('#count').textContent = list.length + (list.length === 1 ? ' session' : ' sessions') + (p === 'all' ? '' : ' in ' + LABEL[p]);
+    $('#sess').innerHTML = list.length ? list.map(function (s, i) {
+      var dt = s.d.split('-'), lineage = s.proof.indexOf('Lineage') === 0;
+      return '<article class="srow"><div class="date"><b>' + Number(dt[2]) + '</b><span>' + MON[Number(dt[1]) - 1] + ' ' + dt[0] + '</span></div>' +
+        '<div><h3>' + esc(s.t) + '</h3><p class="by">with ' + esc(s.by) + ' · ' + esc(s.proof) + '</p>' +
+        '<div class="badges"><span class="badge">' + tick + 'ID verified</span><span class="badge">' + tick + (lineage ? 'Lineage reviewed' : 'Credentials checked') + '</span></div></div>' +
+        '<div class="facts"><span class="price">' + (s.price ? inr.format(s.price) : 'Free') + '</span><span>' + (s.city === s.f ? esc(s.f) : esc(s.city) + ' · ' + esc(s.f)) + '</span><span>' + esc(s.lang) + '</span><span>' + LABEL[s.c] + '</span></div>' +
+        '<div class="acts"><button class="btn sm" type="button" data-reg="' + esc(s.t) + '">Register</button><button class="know" type="button" data-more="' + s.c + '">Know more</button></div></article>';
+    }).join('') : '<div class="empty">No sample sessions match. Clear a filter or choose Online.</div>';
+  }
+  ['f-p', 'f-c', 'f-f'].forEach(function (id) { $('#' + id).addEventListener('change', renderSessions); });
+  $('#reset').addEventListener('click', function () { $('#f-p').value = 'all'; $('#f-c').value = 'all'; $('#f-f').value = 'all'; renderSessions(); });
+  $('#sess').addEventListener('click', function (e) {
+    var r = e.target.closest('[data-reg]');
+    if (r) { $('#note').textContent = 'Preview only: registration for “' + r.dataset.reg + '” is not live yet.'; }
+    var m = e.target.closest('[data-more]');
+    if (m) { $('#f-p').value = m.dataset.more; renderSessions(); }
+  });
+
+  /* ---------- help me choose ---------- */
+  var Q = [
+    { q: 'What are you after?', o: [['Calm and focus', 'yoga'], ['Strength and size', 'strength'], ['Flexibility and posture', 'yoga'], ['Self-defence and discipline', 'kalari'], ['Eating better', 'ayurveda']] },
+    { q: 'Where would you like to train?', o: [['At a studio', 'In person'], ['At home', 'Home visit'], ['Online', 'Online'], ['No preference', 'all']] }
+  ];
+  var WHY = { yoga: 'Breath, balance and steady movement. A good first step for most people.', strength: 'Coached lifting that builds strength safely, with form first.', kalari: 'A traditional Kerala martial art that builds flexibility, balance and discipline. Muay Thai is a good striking alternative.', ayurveda: 'One-to-one advice on food and routine from a registered practitioner.' };
+  var step = 0, ans = [];
+  function renderQuiz() {
+    var el = $('#quiz');
+    if (step < Q.length) {
+      el.innerHTML = '<span class="step">Question ' + (step + 1) + ' of ' + Q.length + '</span><div class="q">' + Q[step].q + '</div><div class="opts">' +
+        Q[step].o.map(function (o, i) { return '<button type="button" data-o="' + i + '">' + o[0] + '</button>'; }).join('') + '</div>';
+    } else {
+      var k = ans[0];
+      el.innerHTML = '<div class="res"><span class="step">We suggest</span><b>' + LABEL[k] + '</b><p>' + WHY[k] + '</p></div><div class="row"><button class="btn sm" type="button" data-show>See sessions</button><button class="btn sm ghost" type="button" data-again>Start again</button></div>';
+    }
+  }
+  $('#quiz').addEventListener('click', function (e) {
+    var o = e.target.closest('[data-o]');
+    if (o) { ans[step] = Q[step].o[o.dataset.o][1]; step++; renderQuiz(); return; }
+    if (e.target.closest('[data-again]')) { step = 0; ans = []; renderQuiz(); return; }
+    if (e.target.closest('[data-show]')) { $('#f-f').value = ans[1]; openSessions(ans[0]); }
+  });
+
+  /* ---------- earnings ---------- */
+  function calc() {
+    var p = Math.max(0, Number($('#c-price').value) || 0), s = Number($('#c-sess').value), g = p * s * 4.33, f = g * 0.15;
+    $('#c-sess-o').textContent = s;
+    $('#c-gross').textContent = inr.format(Math.round(g));
+    $('#c-fee').textContent = '− ' + inr.format(Math.round(f));
+    $('#c-net').textContent = inr.format(Math.round(g - f));
+  }
+  $('#c-price').addEventListener('input', calc); $('#c-sess').addEventListener('input', calc);
+
+  /* ---------- early access (preview only) ---------- */
+  $$('[data-role]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      $$('[data-role]').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      $('#j-prac-l').textContent = b.dataset.role === 'learn' ? 'What would you like to learn?' : 'What do you teach?';
+    });
+  });
+  $('#join-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var ok = $('#j-name').value.trim() && $('#j-contact').value.trim(), st = $('#j-status');
+    st.style.color = ok ? 'var(--leaf)' : 'var(--vermilion)';
+    st.textContent = ok ? 'Preview only: nothing was sent or saved. This form goes live at launch.' : 'Add your name and an email or WhatsApp number.';
+  });
+
+  $('#sub-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = $('#sub-email').value.trim(), m = $('#sub-msg');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) { m.style.color = '#ffb4a0'; m.textContent = 'Please enter a valid email address.'; return; }
+    m.style.color = ''; m.textContent = 'Thanks! You are on the list. (Design preview: nothing is saved yet.)'; $('#sub-email').value = '';
+  });
+  if ('IntersectionObserver' in window && !reduce.matches) {
+    var rvEls = $$('#verified .checks li, #verified .node');
+    rvEls.forEach(function (el, i) { el.classList.add('rv'); el.style.transitionDelay = (i % 4) * 90 + 'ms'; });
+    var rvIO = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); rvIO.unobserve(e.target); setTimeout(function () { e.target.style.transitionDelay = ''; }, 1000); } });
+    }, { threshold: .15 });
+    rvEls.forEach(function (el) { rvIO.observe(el); });
+  }
+  renderRail(); renderProgs(); renderSessions(); renderQuiz(); calc();
+})();
+</script>
+</body></html>
